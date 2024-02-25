@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="courseRegistrationApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .courses {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .course {
+            flex: 0 0 30%;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .course img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>B-Tech Course Registration</h1>
+    </header>
+
+    <div class="container" ng-controller="registrationController">
+        <h2>Choose Your Course</h2>
+        <div class="courses">
+            <div class="course">
+                <img src="AI&DSLOGO.jpg" alt="Course 1">
+                <h3>AI & DS</h3>
+            </div>
+            <div class="course">
+                <img src="robotics-training-course.jpg" alt="Course 2">
+                <h3>Robotics</h3>
+            </div>
+            <div class="course">
+                <img src="cyber-security-courses.webp" alt="Course 3">
+                <h3>Cyber security</h3>
+            </div>
+        </div>
+
+        <h2>Registration Form</h2>
+        <form name="registrationForm" ng-submit="submitForm()" novalidate>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" ng-model="formData.name" required>
+            <span class="error" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required">Name is required.</span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" ng-model="formData.email" required>
+            <span class="error" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.required">Email is required.</span>
+            <span class="error" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email">Invalid email format.</span>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" ng-model="formData.address" required>
+            <span class="error" ng-show="registrationForm.address.$dirty && registrationForm.address.$error.required">Address is required.</span>
+
+            <label for="course">Select Course:</label>
+            <select id="course" name="course" ng-model="formData.course" required>
+                <option value="">Select a course</option>
+                <option value="AI & DS">AI & DS</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Cyber security">Cyber security</option>
+    
+            </select>
+            <span class="error" ng-show="registrationForm.course.$dirty && registrationForm.course.$error.required">Please select a course.</span>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        angular.module('courseRegistrationApp', [])
+            .controller('registrationController', function ($scope) {
+                $scope.formData = {};
+
+                $scope.submitForm = function () {
+                    if ($scope.registrationForm.$valid) {
+                        alert('Registration Successful!');
+                        console.log($scope.formData);
+                    } else {
+                        alert('Please fill out the form correctly.');
+                    }
+                };
+            });
+    </script>
+</body>
+</html>
